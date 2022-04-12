@@ -31,10 +31,6 @@ const WORDLIST = [
     'zen','zero-based','zero-indexed','zip','zombie','zone','zsh',
 ]
 
-function escapeRegExp(string) {
-    return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); // $& means the whole matched string
-}
-
 /**
  * Return the number of single character differences between 2 strings
  * @param {String} s1
