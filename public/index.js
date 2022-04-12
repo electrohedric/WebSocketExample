@@ -1,3 +1,9 @@
+/**
+ * A simple js file containing the bare minimum to
+ * connect to the socketio server and send/receive data
+ * @author Nick Stames
+ */
+
 const socket = io();
 
 function fetchWords() {

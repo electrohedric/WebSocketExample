@@ -1,6 +1,15 @@
-// word list from https://meiert.com/en/blog/the-web-development-glossary/ with a few modifications
-// word list embedded in the app for convenience.
-// in a real app, this should be read in from a file or database
+/**
+ * A simple module file demonstrating how to add external js files in node
+ * and a rudimentary search algorithm to find the best word result for a search term.
+ * Arguably better than Google
+ * @author Nick Stames
+ */
+
+
+/**
+ * word list from https://meiert.com/en/blog/the-web-development-glossary/ with a few modifications
+ * @type {string[]}
+ */
 const WORDLIST = [
     '.gitignore','.htaccess','.htpasswd','.net','/dev/null',
     'a/b','a11y','aaa','above','abstract','abstraction','accelerated','acceptance','access','accessibility','accessible','acm','act','act','action','actionscript','active','activex','adaptive','add','addon','address','adobe','ads.txt','adt','advanced','advertising','aero','affordance','agent','aggregator','agile','agreement','aint','air','ajax','ala','algol','algorithm','algorithmic','all','almost','amaya','amazon','amd','american','amp','analysis','analytics','anchor','and','angular','angularjs','animation','anonymous','another','ansi','anti-pattern','anywhere','aom','apache','apache','apart','api','app','append','apple','applet','application','applications','apt','architecture','archive','argument','aria','arrange','array','arrow','articles','ascii','asi','asp','asp.net','aspect','assert','assigned','assignment','assistive','association','assurance','asynchronous','at-rule','at-spi','atag','atom','atomic','attribute','augmented','authentication','authoring','authority','authorization','automagic','automatic','automation','autonomous','aws',
@@ -30,6 +39,8 @@ const WORDLIST = [
     'yahoo','yaml','yarn','yarn.lock','yellow','yet','you','yourself','yui',
     'zen','zero-based','zero-indexed','zip','zombie','zone','zsh',
 ]
+// word list embedded in the app for convenience.
+// in a real app, this should be read in from a file or database
 
 /**
  * Return the number of single character differences between 2 strings
@@ -90,6 +101,12 @@ async function findTopWords(word, numTop) {
         bestWords.push(listed);
     }
 
+    // this grades each word, so it can be sorted by the sort function
+    // the position of where the search term (word) appears in the lingo (s)
+    // matters the most (6x more), and the similarity in number of characters
+    // that the two words share is ranked second, but still important
+    // for tie breaking. we have already knocked out all the words which
+    // aren't similar at all in the above loop
     function grade(s) {
         return 6 * s.indexOf(word) + difference(s, word);
     }
@@ -102,6 +119,7 @@ async function findTopWords(word, numTop) {
         return 0;
     });
 
+    // take the top n best results
     return bestWords.slice(0, numTop);
 }
 

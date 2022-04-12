@@ -1,3 +1,10 @@
+/**
+ * A simple server which finds web-related suggestions for strings.
+ * this file demonstrates a basic web server, socketio connections,
+ * using modules, and async javascript
+ * @author Nick Stames
+ */
+
 /*********** WEB SERVER ************/
 // boilerplate code copied from https://socket.io/docs/v4/server-initialization/#with-express
 const express = require('express');
